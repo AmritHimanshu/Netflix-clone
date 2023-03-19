@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LanguageIcon from '@mui/icons-material/Language';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -7,6 +7,14 @@ import { useNavigate } from 'react-router-dom';
 function FirstPageFirstPortion() {
 
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        if (!email) return;
+        navigate('/signup/registration');
+        setEmail('');
+    }
 
     return (
         <div>
@@ -40,8 +48,8 @@ function FirstPageFirstPortion() {
                         <p className='text-2xl my-5'>
                             Ready to watch? Enter your email to create or restart your membership.
                         </p>
-                        <form>
-                            <input className='my-5 p-4 w-[450px] bg-black bg-opacity-50 border border-gray-600 rounded-md' type="text" placeholder='Email address' />
+                        <form onSubmit={handleOnSubmit}>
+                            <input className='my-5 p-4 w-[450px] bg-black bg-opacity-50 border border-gray-600 rounded-md' type="email" value={email} placeholder='Email address' onChange={e => setEmail(e.target.value)} />
                             <button className='mx-3 py-[11px] w-[210px] bg-red-600 rounded-md font-semibold text-2xl hover:bg-red-700 duration-300'>
                                 Get Started
                                 <ArrowForwardIosIcon className='ml-1 mb-2' />
