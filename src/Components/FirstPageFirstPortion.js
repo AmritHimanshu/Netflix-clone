@@ -11,7 +11,7 @@ function FirstPageFirstPortion() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (!email) return;
+        // if (!email) return;
         navigate('/signup/registration');
         setEmail('');
     }

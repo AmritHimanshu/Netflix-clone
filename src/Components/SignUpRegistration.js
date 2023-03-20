@@ -39,7 +39,7 @@ function SignUpRegistration() {
             Create a password to watch on any device at any time.
           </p>
 
-          <div className='w-full my-6 py-4 bg-red-600 text-3xl text-white cursor-pointer hover:bg-red-500' onClick={e=>navigate('/signup/regform')}>
+          <div className='w-full my-6 py-4 bg-red-600 text-3xl text-white cursor-pointer hover:bg-red-500' onClick={e => navigate('/signup/regform')}>
             Next
           </div>
         </div>
