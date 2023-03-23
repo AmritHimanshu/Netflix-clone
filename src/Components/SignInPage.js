@@ -1,16 +1,35 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
+import { login } from '../features/userSlice';
 
 function SignInPage() {
 
     const history = useNavigate();
+    const dispatch = useDispatch();
+
     const [learnMore, setLearnMore] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    async function loginToNetflix(e) {
+        e.preventDefault();
+        await auth.signInWithEmailAndPassword(email, password)
+            .then(userAuth => {
+                dispatch(login({
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                }));
+                history('/');
+            }).catch(error => alert(error));
+    }
 
     return (
         <div className='h-[100vh] bg-black'>
             <div className="h-[90vh] bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/d049a3bd-40ee-411b-9f16-d1def798d43b/d6aeb5a9-b14c-42d4-999e-c2f0d6c60f04/IN-en-20230313-popsignuptwoweeks-perspective_alpha_website_large.jpg')] bg-cover bg-center">
                 <div className='h-full bg-black text-white bg-opacity-60'>
-                    <div className='w-[220px] p-5 cursor-pointer' onClick={e=>history('/')}>
+                    <div className='w-[220px] p-5 cursor-pointer' onClick={e => history('/')}>
                         <img src={process.env.PUBLIC_URL + "/images/netflixLogo.png"} alt="" />
                     </div>
 
@@ -19,14 +38,14 @@ function SignInPage() {
 
                         <form>
                             <div className=''>
-                                <input className='my-2 p-4 w-[350px] bg-neutral-800 border border-neutral-800 rounded-md' type="email" placeholder='Email' />
+                                <input className='my-2 p-4 w-[350px] bg-neutral-800 border border-neutral-800 rounded-md' type="email" value={email} placeholder='Email' onChange={e => setEmail(e.target.value)} />
                             </div>
 
                             <div className=''>
-                                <input className='my-2 p-4 w-[350px] bg-neutral-800 border border-neutral-800 rounded-md' type="password" placeholder='Password' />
+                                <input className='my-2 p-4 w-[350px] bg-neutral-800 border border-neutral-800 rounded-md' type="password" value={password} placeholder='Password' onChange={e => setPassword(e.target.value)} />
                             </div>
 
-                            <button className='my-8 p-3 w-[350px] text-center font-bold text-lg rounded-md bg-red-600'>
+                            <button className='my-8 p-3 w-[350px] text-center font-bold text-lg rounded-md bg-red-600' onClick={loginToNetflix}>
                                 Sign In
                             </button>
 
@@ -42,7 +61,7 @@ function SignInPage() {
 
                         <div className='mt-20 flex'>
                             <p className='text-neutral-400 mr-1'>New to Netflix?</p>
-                            <p className='cursor-pointer hover:underline' onClick={e=>history('/')}>Sign up now</p>
+                            <p className='cursor-pointer hover:underline' onClick={e => history('/')}>Sign up now</p>
                         </div>
                         <div className='text-sm text-neutral-400 mt-4 mb-3'>
                             This page is protected by Google reCAPTCHA to ensure you're not a bot.

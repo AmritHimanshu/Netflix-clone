@@ -8,7 +8,7 @@ function HomeScreenBanner() {
 
     useEffect(() => {
         async function fetchData() {
-            const request = await axios.get(requests.fetchTrending);
+            const request = await axios.get(requests.fetchNetflixOriginals);
             setMovie(
                 request.data.results[
                 Math.floor(Math.random() * request.data.results.length - 1)
@@ -44,7 +44,7 @@ function HomeScreenBanner() {
 
             </div>
 
-            {/* <div className='h-[7.4rem] bg-gradient-to-t from-gray-800 '></div> */}
+            {/* <div className='h-[3.2rem] bg-gradient-to-t from-black '></div> */}
 
         </div>
     )

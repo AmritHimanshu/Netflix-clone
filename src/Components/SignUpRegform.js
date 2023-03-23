@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import { currentPassword, selectCurrentEmail } from '../features/emailSlice';
 
 function SignUpRegform() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const selectedEmail = useSelector(selectCurrentEmail);
+
+    const [password, setPassword] = useState(null);
+
+    const Password = (e) => {
+        e.preventDefault();
+        if (!password) return alert("Enter your password");
+        dispatch(currentPassword({
+            password:password,
+        }))
+        navigate('/signup');
+    }
+
 
     return (
         <div>
@@ -33,9 +49,9 @@ function SignUpRegform() {
                         We hate paperwork, too.
                     </p>
                     <form>
-                        <input className='border p-4 my-1 text-lg w-[450px]' type="email" placeholder='Email address' />
-                        <input className='border p-4 my-1 text-lg w-[450px]' type="password" placeholder='Add a password' />
-                        <div className='w-[450px] my-6 py-4 bg-red-600 text-3xl text-white text-center cursor-pointer hover:bg-red-500' onClick={e=>navigate('/signup')}>
+                        <input className='border p-4 my-1 text-lg w-[450px]' type="email" value={selectedEmail} placeholder='Email address' />
+                        <input className='border p-4 my-1 text-lg w-[450px]' type="password" value={password} placeholder='Add a password' onChange={e => setPassword(e.target.value)} />
+                        <div className='w-[450px] my-6 py-4 bg-red-600 text-3xl text-white text-center cursor-pointer hover:bg-red-500' onClick={Password}>
                             Next
                         </div>
                     </form>

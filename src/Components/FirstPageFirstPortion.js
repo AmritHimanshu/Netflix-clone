@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { currentEmail } from '../features/emailSlice';
 import LanguageIcon from '@mui/icons-material/Language';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useNavigate } from 'react-router-dom';
 
 function FirstPageFirstPortion() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        // if (!email) return;
+        if (!email) return alert("Enter your email");
+        dispatch(currentEmail({
+            email:email,
+        }))
         navigate('/signup/registration');
-        setEmail('');
+        // setEmail('');
     }
 
     return (
