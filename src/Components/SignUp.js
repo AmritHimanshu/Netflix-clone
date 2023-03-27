@@ -53,7 +53,6 @@ function SignUp() {
                             </p>
                         </div>
                     </div>
-
                     <div className='w-full my-6 py-4 bg-red-600 text-3xl text-white text-center cursor-pointer hover:bg-red-500' onClick={e => navigate('/signup/planform')}>
                         Next
                     </div>

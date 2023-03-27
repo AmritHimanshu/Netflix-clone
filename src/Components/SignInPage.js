@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { login } from '../features/userSlice';
+import { rememberMe, rememberMeNot, selectRemember } from '../features/rememberSlice';
 
 function SignInPage() {
 
     const history = useNavigate();
     const dispatch = useDispatch();
+
+    const selectRememberMe = useSelector(selectRemember);
 
     const [learnMore, setLearnMore] = useState('');
     const [email, setEmail] = useState('');
@@ -21,8 +24,19 @@ function SignInPage() {
                     email: userAuth.user.email,
                     uid: userAuth.user.uid,
                 }));
-                history('/');
             }).catch(error => alert(error));
+        history('/');
+    }
+
+    const rememberToNetflix = () => {
+        if (selectRememberMe) {
+            dispatch(rememberMeNot());
+            // console.log("if ",selectRememberMe)
+        }
+        else {
+            dispatch(rememberMe());
+            // console.log("else ",selectRememberMe)
+        }
     }
 
     return (
@@ -51,7 +65,7 @@ function SignInPage() {
 
                             <div className='flex justify-between text-neutral-400'>
                                 <div className='cursor-default flex items-center'>
-                                    <input className='w-[15px] h-[15px] mr-2 bg-pink-300 accent-white' id='remember' type="checkbox" /> <label className='text-sm' for="remember">Remember me</label>
+                                    <input className='w-[15px] h-[15px] mr-2 bg-pink-300 accent-white' id='remember' type="checkbox" /> <label className='text-sm' for="remember" onClick={rememberToNetflix}>Remember me</label>
                                 </div>
                                 <div className='text-sm cursor-pointer hover:underline'>
                                     Need help?

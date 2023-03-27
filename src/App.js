@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
+import { selectRemember } from './features/rememberSlice';
 import FirstPage from './Components/FirstPage';
 import SignInPage from './Components/SignInPage';
 import SignUpRegistration from './Components/SignUpRegistration';
@@ -14,26 +15,25 @@ import HomeScreen from './Components/HomeScreen';
 function App() {
 
   const user = useSelector(selectUser);
+  const selectRememberMe = useSelector(selectRemember);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    auth.onAuthStateChanged(userAuth => {
-      if (userAuth) {
-        // user is logged in
-        dispatch(
-          login({
-            email: userAuth.email,
-            uid: userAuth.uid,
-          })
-        );
-
-      }
-      else {
-        // user is logged out
-        dispatch(logout());
-      }
-    });
-
+      auth.onAuthStateChanged(userAuth => {
+        if (userAuth) {
+          // user is logged in
+          dispatch(
+            login({
+              email: userAuth.email,
+              uid: userAuth.uid,
+            })
+          );
+        }
+        else {
+          // user is logged out
+          dispatch(logout());
+        }
+      });
   }, []);
 
 

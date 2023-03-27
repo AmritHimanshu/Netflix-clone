@@ -51,9 +51,9 @@ function SignUpRegform() {
                     <form>
                         <input className='border p-4 my-1 text-lg w-[450px]' type="email" value={selectedEmail} placeholder='Email address' />
                         <input className='border p-4 my-1 text-lg w-[450px]' type="password" value={password} placeholder='Add a password' onChange={e => setPassword(e.target.value)} />
-                        <div className='w-[450px] my-6 py-4 bg-red-600 text-3xl text-white text-center cursor-pointer hover:bg-red-500' onClick={Password}>
+                        <button className='w-[450px] my-6 py-4 bg-red-600 text-3xl text-white text-center cursor-pointer hover:bg-red-500' onClick={Password}>
                             Next
-                        </div>
+                        </button>
                     </form>
                 </div>
             </div>

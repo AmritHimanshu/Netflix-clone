@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../features/userSlice';
+import { auth } from '../firebase';
 import requests from '../Requests';
 import HomeScreenBanner from './HomeScreenBanner';
 import HomeScreenRow from './HomeScreenRow';
@@ -20,9 +20,8 @@ function HomeScreen() {
         else handleShow(false);
     }
 
-    const signOut = (e) => {
-        dispatch(logout());
-        navigate('/login');
+    const signOut =  (e) => {
+        auth.signOut();
     }
 
     useEffect(() => {
