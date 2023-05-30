@@ -2,7 +2,7 @@ import React from 'react'
 
 function FirstPageLeftAds({title,paragraph,image}) {
     return (
-        <div className='px-6 h-[470px] bg-black text-white border-b-[7px] border-neutral-600 flex items-center'>
+        <div className='px-6 h-[470px] bg-black text-white border-b-[7px] border-neutral-600 flex items-center justify-between'>
             <div className='w-[400px]'>
                 <img src={process.env.PUBLIC_URL + `/images/${image}`} alt="" />
             </div>
